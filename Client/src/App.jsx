@@ -1,31 +1,37 @@
-
 import './App.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import readToDoRequest from './assets/API/readToDoRequest';
+import { useQuery } from 'react-query';
 
 function App() {
 
-useEffect(() => {
-console.log('this is the useEffect')
+  const {isLoading, data: toDos} = useQuery('toDos', () => {
 
-}, []);
 
-    return (
+  })
+
+  const [toDos, setToDos] = useState([]);
+
+  useEffect(() => {
+    readToDoRequest().then(setToDos);
+  }, []);
+
+  return (
     <div className="App">
-      This is just plain
+      {toDos.map((todo) => {
+        return (
+          <div key={todo._id}>
+            {todo.text}
+            {`${todo.completed}`}
+          </div>
+        );
+      })}
     </div>
-  )
+  );
 }
 
-export default App
-
-
-
-
-
-
-
-
+export default App;
 
 
 // https://www.youtube.com/watch?v=oJBu2k7OEk8&t=1773s
-// 1: 11
+//1:20 - now adding spinners

@@ -6,9 +6,6 @@ type: String,
 },
 completed: {
     type: Boolean,
-},
-remarks: {
-   type: String, 
 }
 });
 
