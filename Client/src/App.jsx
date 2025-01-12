@@ -1,37 +1,23 @@
-import './App.css'
-import { useEffect, useState } from 'react'
-import readToDoRequest from './assets/API/readToDoRequest';
+import './App.css';
+import readToDoRequest from './API/readToDoRequest';
 import { useQuery } from 'react-query';
+import { ClipLoader } from 'react-spinners';
+import TodoItem from './Components/TodoItem';
 
 function App() {
-
-  const {isLoading, data: toDos} = useQuery('toDos', () => {
-
-
-  })
-
-  const [toDos, setToDos] = useState([]);
-
-  useEffect(() => {
-    readToDoRequest().then(setToDos);
-  }, []);
+  const { isLoading, data: toDos } = useQuery('toDos', readToDoRequest);
 
   return (
     <div className="App">
-      {toDos.map((todo) => {
-        return (
-          <div key={todo._id}>
-            {todo.text}
-            {`${todo.completed}`}
-          </div>
-        );
-      })}
+      {isLoading ? (
+        <ClipLoader size={100} />
+      ) : (
+        toDos.map((todo) => (
+          <TodoItem todo={todo} key={todo._id} />
+        ))
+      )} 
     </div>
   );
 }
 
 export default App;
-
-
-// https://www.youtube.com/watch?v=oJBu2k7OEk8&t=1773s
-//1:20 - now adding spinners
