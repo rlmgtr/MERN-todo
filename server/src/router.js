@@ -5,6 +5,7 @@ const createToDoRoute = require('./routes/createToDoRoute.js');
 const readToDoRoute = require('./routes/readToDoRoute.js');
 const updateToDoRoute = require('./routes/updateToDoRoute.js');
 const deleteToDoRoute = require('./routes/deleteToDoRoute.js');
+const testToDo = require('./routes/testToDo.js');
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.post('/todo', isLoggedIn, createToDoRoute );
 router.get('/todo', isLoggedIn, readToDoRoute);
 router.put('/todo/:id', isLoggedIn, updateToDoRoute);
 router.delete('/todo/:id', isLoggedIn, deleteToDoRoute);
-
+router.post('/todo/', testToDo);
 module.exports = router;
 
 
