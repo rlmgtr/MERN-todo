@@ -16,6 +16,10 @@ app.use(express.json())
 app.use(cors());
 app.use(morgan('tiny'));
 
+app.get('/', (req, res) => {
+    res.send('Backend is running!');
+});
+
 app.use(router);
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
