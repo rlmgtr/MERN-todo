@@ -12,7 +12,9 @@ const router = express.Router();
 router.post('/login', require('./routes/loginRoute'));
 
 router.post('/todo', isLoggedIn, createToDoRoute );
-router.get('/todo', isLoggedIn, readToDoRoute);
+
+//router.get('/todo', isLoggedIn, readToDoRoute);
+router.get('/todo', readToDoRoute);
 router.put('/todo/:id', isLoggedIn, updateToDoRoute);
 router.delete('/todo/:id', isLoggedIn, deleteToDoRoute);
 router.post('/todo/', testToDo);
