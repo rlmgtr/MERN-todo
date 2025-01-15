@@ -1,16 +1,51 @@
-import React from 'react'
+import React from 'react';
+import { useQueryClient, useMutation } from 'react-query';
+import updateToDoRequest from '../API/updateToDoRequest';
 
 const TodoItem = ({ todo }) => {
+  const queryClient = useQueryClient();
+
+  const { mutate: toggleCompletion } = useMutation(
+    async (updatedToDo) => {
+      console.log('Updating TODO:', updatedToDo);
+      return await updateToDoRequest(updatedToDo);
+    },
+    {
+      onError: (error) => {
+        console.error('Error updating TODO:', error.message);
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('todos');
+      },
+    }
+  );
+
+  const handleTextChange = (newText) => {
+    toggleCompletion({
+      ...todo,
+      text: newText,
+    });
+  };
+
   return (
     <div>
-      {todo.text}
-      {`${todo.completed}`}
+      <input
+        checked={todo.completed}
+        type="checkbox"
+        onChange={() =>
+          toggleCompletion({
+            ...todo,
+            completed: !todo.completed,
+          })
+        }
+      />
+      <input
+        type="text"
+        value={todo.text}
+        onChange={(e) => handleTextChange(e.target.value)}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default TodoItem
-
-
-// https://www.youtube.com/watch?v=oJBu2k7OEk8&t=1773s
-// 1:26:50 - adding checkbox now
+export default TodoItem;

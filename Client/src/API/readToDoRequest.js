@@ -1,5 +1,4 @@
-const API_URL = `https://mern-todo-9ieq.onrender.com/todo`; 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTczNjgzMzU5Nn0.9jRf-CUnB3R8yYiAzaaBushbJ9lU7Q0fbxrgePY5aEs';
+import { API_URL, token } from "./config";
 
 export default () => {
     return fetch(`${API_URL}/todo`, {
